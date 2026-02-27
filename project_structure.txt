@@ -17,6 +17,8 @@ hsrpvp_spacetimedb/
 │   └── update_static_data.js        # Script to bulk upsert JSON data
 │
 ├── spacetimedb/                     # [SERVER SIDE] Database & Backend Logic
+│   └── dist/                        # [SERVER SIDE] Build output
+│       └── bundle.js                # [SERVER SIDE] SpacetimeDB bundle
 │   └── src/
 │       ├── index.ts                 # Main entry point
 │       ├── tables/                  # Database Schema Definitions
