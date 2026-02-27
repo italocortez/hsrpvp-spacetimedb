@@ -1,5 +1,5 @@
 import { createApp, h } from 'vue';
-import App from './App.vue';
+import App from './app.vue';
 import { Identity } from 'spacetimedb';
 import { SpacetimeDBProvider } from 'spacetimedb/vue';
 import { DbConnection, ErrorContext } from './module_bindings/index.ts';
