@@ -1,23 +1,19 @@
-import { ReducerCtx, SenderError } from 'spacetimedb/server';
+import { SenderError } from 'spacetimedb/server';
 
-// We use <any> here to bypass strict schema typing for these helper functions.
-// This prevents circular dependencies while still allowing access to ctx.db.
-type Ctx = ReducerCtx<any>;
+// We use 'any' for ctx to avoid import errors with ReducerContext types during bundling.
+// Since this function is called inside a valid Reducer, ctx is guaranteed to be valid.
 
 /**
  * Throws an error if the sender is not an Admin.
  */
-export function ensureAdmin(ctx: Ctx) {
-    // Cast db to any to access tables dynamically without strict type definitions
-    const db = ctx.db as any;
-
-    const user = db.user.identity.find(ctx.sender);
+export function ensureAdmin(ctx: any) {
+    // ctx.db is 'any', so we access tables via their Schema names (PascalCase)
+    const user = ctx.db.User.id.find(ctx.sender);
 
     if (!user) {
         throw new SenderError('Authentication failed: User not found.');
     }
 
-    // Accessing the Enum variant tag directly from the row data
     if (user.role.tag !== 'Admin') {
         throw new SenderError('Permission denied: Admin role required.');
     }
@@ -26,15 +22,14 @@ export function ensureAdmin(ctx: Ctx) {
 /**
  * Throws an error if the sender is not the Host of the specified match.
  */
-export function ensureHost(ctx: Ctx, matchId: bigint) {
-    const db = ctx.db as any;
-    const match = db.matchSession.id.find(matchId);
+export function ensureHost(ctx: any, matchId: bigint) {
+    const match = ctx.db.MatchSession.id.find(matchId);
 
     if (!match) {
         throw new SenderError(`Match session ${matchId} not found.`);
     }
 
-    // Compare Identity strings for safety
+    // Compare Identity strings
     if (match.hostId.toHexString() !== ctx.sender.toHexString()) {
         throw new SenderError('Permission denied: Only the Host can perform this action.');
     }
@@ -43,16 +38,12 @@ export function ensureHost(ctx: Ctx, matchId: bigint) {
 /**
  * Throws an error if the sender is not a Referee (or Host) for the match.
  */
-export function ensureReferee(ctx: Ctx, matchId: bigint) {
-    const db = ctx.db as any;
-
-    // 1. Get participants for this match
-    // Note: .filter() returns an iterator
-    const participants = db.matchParticipants.by_match_id.filter(matchId);
+export function ensureReferee(ctx: any, matchId: bigint) {
+    // Access custom index dynamically
+    const participants = ctx.db.MatchParticipant.match_participants_match_id.filter(matchId);
     let isRef = false;
 
     for (const p of participants) {
-        // Check Identity match + Referee Boolean flag
         if (p.userId.toHexString() === ctx.sender.toHexString() && p.isReferee) {
             isRef = true;
             break;
@@ -67,20 +58,17 @@ export function ensureReferee(ctx: Ctx, matchId: bigint) {
 /**
  * Helper to get user or create guest if they don't exist
  */
-export function getOrCreateUser(ctx: Ctx) {
-    const db = ctx.db as any;
-    let user = db.user.identity.find(ctx.sender);
+export function getOrCreateUser(ctx: any) {
+    let user = ctx.db.User.id.find(ctx.sender);
 
     if (!user) {
         // Auto-register as Player/Guest
-        // 0n is the placeholder for AutoInc ID
-        const row = db.user.insert({
-            id: 0n,
+        const row = ctx.db.User.insert({
+            id: ctx.sender,
             nickname: `Guest-${ctx.sender.toHexString().substring(0, 6)}`,
             online: true,
-            role: { tag: 'Player', value: {} },
+            role: { tag: 'Player' },
             profilePicture: 'default',
-            // discordId is optional, so we can omit it
         });
         return row;
     }
