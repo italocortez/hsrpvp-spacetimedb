@@ -1,0 +1,122 @@
+hsrpvp_spacetimedb/
+├── .env.local                       # Environment variables
+├── package.json                     # Root dependencies
+├── tsconfig.json                    # TypeScript config
+├── vite.config.ts                   # Vite build config
+├── spacetimedb.json                 # SpacetimeDB project configuration
+├── deploy_scripts/                  # Deployment automation
+│   └── update_static_data.js        # Script to bulk upsert JSON data
+│
+├── spacetimedb/                     # [SERVER SIDE] Database & Backend Logic
+│   └── src/
+│       ├── index.ts                 # Main entry point
+│       ├── tables/                  # Database Schema Definitions
+│       │   ├── user.ts              # Identity, roles, status
+│       │   ├── hsr_character.ts     # Characters (Base data)
+│       │   ├── hsr_lightcone.ts     # Lightcones (Base data)
+│       │   ├── synergy_cost.ts      # Rules for calculating costs
+│       │   ├── match_active.ts      # Live session data
+│       │   ├── match_step.ts        # Individual actions
+│       │   ├── history_meta.ts      # Archived match headers
+│       │   └── history_log.ts       # Archived replay data
+│       │
+│       ├── reducers/                # Server-Side Business Logic
+│       │   ├── auth_reducer.ts      # Auth logic
+│       │   ├── lobby_reducer.ts     # Room creation/joining
+│       │   ├── draft_classic.ts     # Pick/Ban logic
+│       │   ├── draft_auction.ts     # Bidding logic
+│       │   ├── admin_tools.ts       # CMS logic
+│       │   └── match_lifecycle.ts   # Start/End/Snapshot
+│       │
+│       └── utils/
+│           └── permissions.ts       # Role checking middleware
+│
+└── src/                             # [CLIENT SIDE] Vue 3 + Vite Application
+    ├── main.ts                      # App bootstrap
+    ├── app.vue                      # Root component
+    ├── style.css                    # Global resets
+    │
+    ├── module_bindings/             # [GENERATED] SpacetimeDB Types
+    │
+    ├── assets/                      # Static assets
+    │
+    ├── core/                        # Application-wide singletons
+    │   ├── router/
+    │   │   └── index.ts             # Vue Router
+    │   ├── stdb_client/             # SpacetimeDB Wrapper
+    │   │   ├── client.ts            # Connection handler
+    │   │   └── subscriptions.ts     # Data subscription logic
+    │   └── theme/                   # Theming constants
+    │       └── colors.ts
+    │
+    ├── shared/                      # Reusable UI Components
+    │   ├── ui_button.vue            # Generic button
+    │   ├── ui_input.vue             # Generic inputs
+    │   ├── ui_modal.vue             # Modal wrapper
+    │   ├── resource_icon.vue        # Element/Path icons
+    │   ├── char_card.vue            # Standard character display
+    │   └── lc_card.vue              # Standard lightcone display
+    │
+    ├── modules/                     # FEATURE MODULES
+    │   │
+    │   ├── auth/                    # Authentication
+    │   │   ├── stores/
+    │   │   │   └── auth_store.ts
+    │   │   └── components/
+    │   │       ├── login_form.vue
+    │   │       └── discord_btn.vue
+    │   │
+    │   ├── lobby/                   # Lobby System
+    │   │   ├── views/
+    │   │   │   └── lobby_room.vue   # Main lobby interface
+    │   │   └── components/
+    │   │       ├── role_select.vue
+    │   │       └── invite_link.vue
+    │   │
+    │   ├── drafting/                # The Core Game Engine
+    │   │   ├── logic/
+    │   │   │   ├── turn_timer.ts    # Countdown logic
+    │   │   │   └── sound_fx.ts      # Audio triggers
+    │   │   │
+    │   │   ├── views/
+    │   │   │   ├── drafting_area.vue # CONTROLLER: Switches between Classic/Auction
+    │   │   │   └── post_match.vue    # Results screen
+    │   │   │
+    │   │   ├── modes/               # MODE-SPECIFIC LAYOUTS
+    │   │   │   ├── mode_classic.vue  # Layout for Pick/Ban (Contains Ban Zone logic)
+    │   │   │   └── mode_auction.vue  # Layout for Bidding (Contains Bid Panel logic)
+    │   │   │
+    │   │   ├── components/          # Components shared across BOTH modes
+    │   │   │   ├── grid_picker.vue   # The main character pool selection
+    │   │   │   ├── team_slots.vue    # The 1v1/2v2/3v3 slots
+    │   │   │   └── match_header.vue  # Scoreboard, Timers, Vs Label
+    │   │
+    │   ├── builder/                 # Test/Builder Mode
+    │   │   ├── logic/
+    │   │   │   └── loadout_mgr.ts   # LocalStorage wrapper
+    │   │   └── views/
+    │   │       └── sandbox.vue      # Uses shared/grid_picker.vue + internal logic
+    │   │
+    │   ├── library/                 # Data Library
+    │   │   ├── logic/
+    │   │   │   └── table_builder.ts # TRANSFORMER: Joins Char+Cost data
+    │   │   ├── views/
+    │   │   │   └── cost_tables.vue  # Displays constructed tables
+    │   │   └── components/
+    │   │       └── filter_bar.vue
+    │   │
+    │   ├── profile/                 # User Management
+    │   │   └── views/
+    │   │       └── my_roster.vue
+    │   │
+    │   └── admin/                   # Admin Panel
+    │       ├── views/
+    │       │   └── dashboard.vue
+    │       └── components/
+    │           ├── cost_editor.vue
+    │           ├── session_mgr.vue
+    │           └── json_upload.vue
+    │
+    └── utils/                       # Generic Helpers
+        ├── formatters.ts
+        └── export_image.ts
