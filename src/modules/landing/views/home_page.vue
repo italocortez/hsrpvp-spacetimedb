@@ -33,8 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import LoginForm from '@/modules/auth/components/login_form.vue';
-import FeatureCards from '@/modules/landing/components/feature_cards.vue';
+import LoginForm from '../../auth/components/login_form.vue';
+import FeatureCards from '../components/feature_cards.vue';
 
 const on_login_guest = (alias: string) => {
   console.log(`[Home] Guest login initiated for alias: ${alias}`);

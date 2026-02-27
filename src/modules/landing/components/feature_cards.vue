@@ -8,7 +8,7 @@
     >
       <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60"></div>
       <img
-        src="@/assets/features/create_lobby.png"
+        src="../../../assets/features/create_lobby.png"
         alt="Create Lobby"
         class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-80"
         @error="handle_image_error"
@@ -26,7 +26,7 @@
     >
       <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60"></div>
       <img
-        src="@/assets/features/cost_tables.png"
+        src="../../../assets/features/cost_tables.png"
         alt="Data Library"
         class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-80"
         @error="handle_image_error"
@@ -44,7 +44,7 @@
     >
       <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-60"></div>
       <img
-        src="@/assets/features/testing_sandbox.png"
+        src="../../../assets/features/testing_sandbox.png"
         alt="Team Builder"
         class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-80"
         @error="handle_image_error"
