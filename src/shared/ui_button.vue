@@ -1,0 +1,3 @@
+<template>
+  <!-- Generic button -->
+</template>

@@ -76,11 +76,12 @@ hsrpvp_spacetimedb/
     │   │   └── components/
     │   │       ├── login_form.vue   # UI: Input Alias OR Click Discord Btn
     │   │       └── user_badge.vue   # UI: Small avatar/name display
+    │   │
     │   ├── landing/                 # Marketing & Entry
     │   │   ├── views/
     │   │   │   └── home_page.vue    # IMPORTS: auth/login_form.vue
     │   │   └── components/
-    │   │       └── card_views.vue   # Shows the website features as cards for quick navigation
+    │   │       └── feature_cards.vue   # Shows the website features as cards for quick navigation
     │   │
     │   ├── lobby/                   # Lobby System
     │   │   ├── views/

@@ -1,0 +1,3 @@
+<template>
+  <!-- Modal wrapper -->
+</template>
