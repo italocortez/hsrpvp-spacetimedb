@@ -8,8 +8,19 @@ import {
   t as __t,
   type AlgebraicTypeType as __AlgebraicTypeType,
   type Infer as __Infer,
-} from 'spacetimedb';
+} from "spacetimedb";
+import {
+  HistoryStep,
+  CharSnapshot,
+} from "./types";
+
 
 export default __t.row({
-  name: __t.string(),
+  matchId: __t.u64().primaryKey().name("match_id"),
+  get steps() {
+    return __t.array(HistoryStep);
+  },
+  get snapshots() {
+    return __t.array(CharSnapshot);
+  },
 });
