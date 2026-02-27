@@ -1,43 +1,41 @@
 <template>
-  <div class="flex flex-col items-center justify-center w-full max-w-sm p-6 bg-gray-800 rounded-lg shadow-md border border-gray-700">
+  <div class="login_container">
     <!-- Guest Login Section -->
-    <div class="w-full mb-4">
-      <label for="guest_alias" class="block mb-2 text-sm font-medium text-gray-300">Guest Alias</label>
-      <input
-        id="guest_alias"
-        v-model="guest_alias"
-        type="text"
-        placeholder="Enter your alias..."
-        class="w-full px-4 py-2 text-gray-100 bg-gray-700 border border-gray-600 rounded focus:border-blue-500 focus:ring-blue-500 focus:outline-none placeholder-gray-400 mb-3"
-      />
-      <button
-        @click="handle_guest_login"
-        :disabled="!guest_alias.trim()"
-        class="w-full px-4 py-2 font-semibold text-white transition-colors bg-blue-600 rounded hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed"
-      >
-        Join as Guest
-      </button>
+    <div class="guest_section">
+      <label for="guest_alias" class="label_text">Guest Access</label>
+      <div class="input_row">
+        <input
+          id="guest_alias"
+          v-model="guest_alias"
+          type="text"
+          placeholder="Enter alias..."
+          class="input_field"
+          @keyup.enter="handle_guest_login"
+        />
+        <button
+          @click="handle_guest_login"
+          :disabled="!guest_alias.trim()"
+          class="btn_guest"
+        >
+          Join
+        </button>
+      </div>
     </div>
 
     <!-- Separator -->
-    <div class="flex items-center w-full my-4">
-      <div class="flex-grow border-t border-gray-600"></div>
-      <span class="px-3 text-sm text-gray-400">OR</span>
-      <div class="flex-grow border-t border-gray-600"></div>
+    <div class="separator">
+      <div class="line"></div>
+      <span class="or_text">OR</span>
+      <div class="line"></div>
     </div>
 
     <!-- Discord Login Section -->
-    <div class="w-full">
-      <button
-        @click="handle_discord_login"
-        class="flex items-center justify-center w-full px-4 py-2 font-semibold text-white transition-colors bg-[#5865F2] rounded hover:bg-[#4752C4]"
-      >
-        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189z"/>
-        </svg>
-        Login with Discord
-      </button>
-    </div>
+    <button @click="handle_discord_login" class="btn_discord">
+      <svg class="discord_icon" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+      </svg>
+      Login with Discord
+    </button>
   </div>
 </template>
 
@@ -61,3 +59,123 @@ const handle_discord_login = () => {
   emit('login:discord');
 };
 </script>
+
+<style scoped>
+.login_container {
+  width: 100%;
+  max-width: 400px;
+  background-color: rgb(31, 41, 55); /* Gray 800 */
+  border: 1px solid rgb(55, 65, 81); /* Gray 700 */
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Guest Section */
+.guest_section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label_text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(209, 213, 219); /* Gray 300 */
+  text-align: left;
+}
+
+.input_row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input_field {
+  flex: 1;
+  background-color: rgb(55, 65, 81); /* Gray 700 */
+  border: 1px solid rgb(75, 85, 99); /* Gray 600 */
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input_field:focus {
+  border-color: rgb(59, 130, 246); /* Blue 500 */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.input_field::placeholder {
+  color: rgb(156, 163, 175);
+}
+
+.btn_guest {
+  padding: 0.5rem 1rem;
+  background-color: rgb(37, 99, 235); /* Blue 600 */
+  color: white;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn_guest:hover:not(:disabled) {
+  background-color: rgb(29, 78, 216); /* Blue 700 */
+}
+
+.btn_guest:disabled {
+  background-color: rgb(75, 85, 99);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Separator */
+.separator {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background-color: rgb(75, 85, 99); /* Gray 600 */
+}
+
+.or_text {
+  font-size: 0.875rem;
+  color: rgb(156, 163, 175); /* Gray 400 */
+}
+
+/* Discord Button */
+.btn_discord {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.625rem;
+  background-color: #5865F2; /* Discord Blurple */
+  color: white;
+  font-weight: 600;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn_discord:hover {
+  background-color: #4752C4;
+}
+
+.discord_icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+</style>

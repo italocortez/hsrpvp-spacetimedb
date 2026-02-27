@@ -1,5 +1,7 @@
 import { createApp, h } from 'vue';
+import './style.css';
 import App from './app.vue';
+import router from './core/router';
 import { Identity } from 'spacetimedb';
 import { SpacetimeDBProvider } from 'spacetimedb/vue';
 import { DbConnection, ErrorContext } from './module_bindings/index.ts';
@@ -34,4 +36,4 @@ const connectionBuilder = DbConnection.builder()
 
 createApp({
   render: () => h(SpacetimeDBProvider, { connectionBuilder }, () => h(App)),
-}).mount('#app');
+}).use(router).mount('#app');
