@@ -15,7 +15,7 @@ export const MatchParticipant = table({
     name: 'match_participants',
     public: true,
     indexes: [
-        { name: 'by_match_id', algorithm: 'btree', columns: ['matchId'] },
+        { name: 'match_participants_match_id', algorithm: 'btree', columns: ['matchId'] },
     ],
 }, {
     id: t.u64().primaryKey().autoInc(),

@@ -14,7 +14,7 @@ export const MatchStep = table({
     name: 'match_step',
     public: true,
     indexes: [
-        { name: 'by_match_id', algorithm: 'btree', columns: ['matchId'] },
+        { name: 'match_step_match_id', algorithm: 'btree', columns: ['matchId'] },
     ],
 }, {
     id: t.u64().primaryKey().autoInc(),
