@@ -1,9 +1,18 @@
 hsrpvp_spacetimedb/
 ├── .env.local                       # Environment variables
+├── LICENSE                          # License file
+├── README.md                        # Project documentation
 ├── package.json                     # Root dependencies
+├── package-lock.json                # Root dependencies lock
+├── env.d.ts                         # TypeScript environment declarations
 ├── tsconfig.json                    # TypeScript config
 ├── vite.config.ts                   # Vite build config
 ├── spacetimedb.json                 # SpacetimeDB project configuration
+├── spacetime.local.json             # SpacetimeDB local configuration
+├── CLAUDE.md                        # Claude AI documentation
+├── AGENTS.md                        # Agents documentation
+├── .windsurfrules                   # Windsurf AI documentation
+├── .gitignore                       # Git ignore file
 ├── deploy_scripts/                  # Deployment automation
 │   └── update_static_data.js        # Script to bulk upsert JSON data
 │
