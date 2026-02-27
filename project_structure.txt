@@ -70,12 +70,18 @@ hsrpvp_spacetimedb/
     │
     ├── modules/                     # FEATURE MODULES
     │   │
-    │   ├── auth/                    # Authentication
+    │   ├── auth/                    # [DOMAIN] Identity & Access
     │   │   ├── stores/
-    │   │   │   └── auth_store.ts
+    │   │   │   └── auth_store.ts    # State: CurrentUser, Token, IsGuest
     │   │   └── components/
-    │   │       ├── login_form.vue
-    │   │       └── discord_btn.vue
+    │   │       ├── login_form.vue   # UI: Input Alias OR Click Discord Btn
+    │   │       └── user_badge.vue   # UI: Small avatar/name display
+    │   │
+    │   ├── landing/                 # Marketing & Entry
+    │   │   ├── views/
+    │   │   │   └── home_page.vue    # IMPORTS: auth/login_form.vue
+    │   │   └── components/
+    │   │       └── feature_cards.vue   # Shows the website features as cards for quick navigation
     │   │
     │   ├── lobby/                   # Lobby System
     │   │   ├── views/

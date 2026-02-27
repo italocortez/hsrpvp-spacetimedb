@@ -1,0 +1,2 @@
+// Characters (Base data)
+export { };
