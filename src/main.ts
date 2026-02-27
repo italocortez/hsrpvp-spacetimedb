@@ -1,6 +1,6 @@
 import { createApp, h } from 'vue';
 import './style.css';
-import App from './app.vue';
+import App from './App.vue';
 import router from './core/router';
 import { Identity } from 'spacetimedb';
 import { SpacetimeDBProvider } from 'spacetimedb/vue';

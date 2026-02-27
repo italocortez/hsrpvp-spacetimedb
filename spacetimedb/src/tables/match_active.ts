@@ -1,2 +1,0 @@
-// Live session data
-export { };
