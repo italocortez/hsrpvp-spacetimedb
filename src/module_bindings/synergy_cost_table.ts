@@ -8,8 +8,17 @@ import {
   t as __t,
   type AlgebraicTypeType as __AlgebraicTypeType,
   type Infer as __Infer,
-} from 'spacetimedb';
+} from "spacetimedb";
+import {
+  SynergyValues,
+} from "./types";
 
-export default {
-  name: __t.string(),
-};
+
+export default __t.row({
+  id: __t.string().primaryKey(),
+  source: __t.string(),
+  pairTarget: __t.string().name("pair_target"),
+  get cost() {
+    return SynergyValues;
+  },
+});

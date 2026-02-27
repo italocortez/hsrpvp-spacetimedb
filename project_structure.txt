@@ -21,12 +21,14 @@ hsrpvp_spacetimedb/
 │       └── bundle.js                # [SERVER SIDE] SpacetimeDB bundle
 │   └── src/
 │       ├── index.ts                 # Main entry point
+│       ├── schema.ts                # Schema definitions
 │       ├── tables/                  # Database Schema Definitions
 │       │   ├── user.ts              # Identity, roles, status
 │       │   ├── hsr_character.ts     # Characters (Base data)
 │       │   ├── hsr_lightcone.ts     # Lightcones (Base data)
 │       │   ├── synergy_cost.ts      # Rules for calculating costs
-│       │   ├── match_active.ts      # Live session data
+│       │   ├── match_session.ts      # Live session data
+│       │   ├── match_participants.ts # Users linked to a session
 │       │   ├── match_step.ts        # Individual actions
 │       │   ├── history_meta.ts      # Archived match headers
 │       │   └── history_log.ts       # Archived replay data

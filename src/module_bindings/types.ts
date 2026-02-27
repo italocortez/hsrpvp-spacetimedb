@@ -8,9 +8,253 @@ import {
   t as __t,
   type AlgebraicTypeType as __AlgebraicTypeType,
   type Infer as __Infer,
-} from 'spacetimedb';
+} from "spacetimedb";
 
-export const Person = __t.object('Person', {
-  name: __t.string(),
+export const BidPayload = __t.object("BidPayload", {
+  char: __t.string(),
+  amount: __t.u32(),
 });
-export type Person = __Infer<typeof Person>;
+export type BidPayload = __Infer<typeof BidPayload>;
+
+export const CardPosition = __t.object("CardPosition", {
+  width: __t.string(),
+  x: __t.i32(),
+  y: __t.i32(),
+});
+export type CardPosition = __Infer<typeof CardPosition>;
+
+export const CharSnapshot = __t.object("CharSnapshot", {
+  charName: __t.string(),
+  finalCost: __t.f32(),
+  lightconeName: __t.option(__t.string()),
+});
+export type CharSnapshot = __Infer<typeof CharSnapshot>;
+
+export const EidolonCost = __t.object("EidolonCost", {
+  e0: __t.f32(),
+  e1: __t.f32(),
+  e2: __t.f32(),
+  e3: __t.f32(),
+  e4: __t.f32(),
+  e5: __t.f32(),
+  e6: __t.f32(),
+});
+export type EidolonCost = __Infer<typeof EidolonCost>;
+
+export const GameModeCost = __t.object("GameModeCost", {
+  get memoryofchaos() {
+    return EidolonCost;
+  },
+  get apocalypticshadow() {
+    return EidolonCost;
+  },
+  get anomalyarbitration() {
+    return EidolonCost;
+  },
+});
+export type GameModeCost = __Infer<typeof GameModeCost>;
+
+export const HistoryLog = __t.object("HistoryLog", {
+  matchId: __t.u64(),
+  get steps() {
+    return __t.array(HistoryStep);
+  },
+  get snapshots() {
+    return __t.array(CharSnapshot);
+  },
+});
+export type HistoryLog = __Infer<typeof HistoryLog>;
+
+export const HistoryMeta = __t.object("HistoryMeta", {
+  matchId: __t.u64(),
+  get settings() {
+    return MatchSettings;
+  },
+  get winner() {
+    return MatchSide;
+  },
+  endedAt: __t.timestamp(),
+  hostName: __t.string(),
+  redTeamNames: __t.array(__t.string()),
+  blueTeamNames: __t.array(__t.string()),
+});
+export type HistoryMeta = __Infer<typeof HistoryMeta>;
+
+export const HistoryStep = __t.object("HistoryStep", {
+  get action() {
+    return StepAction;
+  },
+  timestamp: __t.timestamp(),
+  actorId: __t.string(),
+});
+export type HistoryStep = __Infer<typeof HistoryStep>;
+
+export const HsrCharacter = __t.object("HsrCharacter", {
+  name: __t.string(),
+  displayName: __t.string(),
+  aliases: __t.array(__t.string()),
+  rarity: __t.u8(),
+  path: __t.string(),
+  element: __t.string(),
+  role: __t.string(),
+  imageUrl: __t.string(),
+  get cost() {
+    return GameModeCost;
+  },
+});
+export type HsrCharacter = __Infer<typeof HsrCharacter>;
+
+export const HsrLightcone = __t.object("HsrLightcone", {
+  name: __t.string(),
+  displayName: __t.string(),
+  aliases: __t.array(__t.string()),
+  path: __t.string(),
+  rarity: __t.u8(),
+  imageUrl: __t.string(),
+  get cost() {
+    return SuperimpositionCost;
+  },
+  get positioning() {
+    return CardPosition;
+  },
+});
+export type HsrLightcone = __Infer<typeof HsrLightcone>;
+
+export const MatchParticipants = __t.object("MatchParticipants", {
+  id: __t.u64(),
+  matchId: __t.u64(),
+  userId: __t.identity(),
+  isReferee: __t.bool(),
+  get side() {
+    return MatchSide;
+  },
+  get role() {
+    return MatchRole;
+  },
+  slotIndex: __t.u8(),
+});
+export type MatchParticipants = __Infer<typeof MatchParticipants>;
+
+// The tagged union or sum type for the algebraic type `MatchRole`.
+export const MatchRole = __t.enum("MatchRole", {
+  Player: __t.unit(),
+  Spectator: __t.unit(),
+});
+export type MatchRole = __Infer<typeof MatchRole>;
+
+export const MatchSession = __t.object("MatchSession", {
+  id: __t.u64(),
+  hostId: __t.identity(),
+  get status() {
+    return MatchStatus;
+  },
+  get settings() {
+    return MatchSettings;
+  },
+  startedAt: __t.timestamp(),
+  lastActionAt: __t.timestamp(),
+});
+export type MatchSession = __Infer<typeof MatchSession>;
+
+export const MatchSettings = __t.object("MatchSettings", {
+  reserveTime: __t.f32(),
+  phaseTime: __t.f32(),
+  banRestrictions: __t.string(),
+  gameMode: __t.string(),
+  draftMode: __t.string(),
+  rosterDifferenceAdvantage: __t.f32(),
+  underThresholdAdvantagePerPoint: __t.f32(),
+  aboveThresholdPenaltyPerPoint: __t.f32(),
+  deathPenalties: __t.f32(),
+  bidBudget: __t.f32(),
+});
+export type MatchSettings = __Infer<typeof MatchSettings>;
+
+// The tagged union or sum type for the algebraic type `MatchSide`.
+export const MatchSide = __t.enum("MatchSide", {
+  Red: __t.unit(),
+  Blue: __t.unit(),
+  None: __t.unit(),
+});
+export type MatchSide = __Infer<typeof MatchSide>;
+
+// The tagged union or sum type for the algebraic type `MatchStatus`.
+export const MatchStatus = __t.enum("MatchStatus", {
+  Lobby: __t.unit(),
+  InProgress: __t.unit(),
+  Ended: __t.unit(),
+  Abandoned: __t.unit(),
+});
+export type MatchStatus = __Infer<typeof MatchStatus>;
+
+export const MatchStep = __t.object("MatchStep", {
+  id: __t.u64(),
+  matchId: __t.u64(),
+  stepIndex: __t.u32(),
+  timestamp: __t.timestamp(),
+  get action() {
+    return StepAction;
+  },
+  actor: __t.identity(),
+});
+export type MatchStep = __Infer<typeof MatchStep>;
+
+// The tagged union or sum type for the algebraic type `StepAction`.
+export const StepAction = __t.enum("StepAction", {
+  StartMatch: __t.unit(),
+  Ban: __t.string(),
+  Pick: __t.string(),
+  get Bid() {
+    return BidPayload;
+  },
+  Pause: __t.unit(),
+  Resume: __t.unit(),
+  Undo: __t.unit(),
+});
+export type StepAction = __Infer<typeof StepAction>;
+
+export const SuperimpositionCost = __t.object("SuperimpositionCost", {
+  s1: __t.f32(),
+  s2: __t.f32(),
+  s3: __t.f32(),
+  s4: __t.f32(),
+  s5: __t.f32(),
+});
+export type SuperimpositionCost = __Infer<typeof SuperimpositionCost>;
+
+export const SynergyCost = __t.object("SynergyCost", {
+  id: __t.string(),
+  source: __t.string(),
+  pairTarget: __t.string(),
+  get cost() {
+    return SynergyValues;
+  },
+});
+export type SynergyCost = __Infer<typeof SynergyCost>;
+
+export const SynergyValues = __t.object("SynergyValues", {
+  memoryofchaos: __t.f32(),
+  apocalypticshadow: __t.f32(),
+});
+export type SynergyValues = __Infer<typeof SynergyValues>;
+
+export const User = __t.object("User", {
+  id: __t.identity(),
+  nickname: __t.string(),
+  discordId: __t.option(__t.string()),
+  online: __t.bool(),
+  get role() {
+    return UserRole;
+  },
+  profilePicture: __t.string(),
+});
+export type User = __Infer<typeof User>;
+
+// The tagged union or sum type for the algebraic type `UserRole`.
+export const UserRole = __t.enum("UserRole", {
+  Admin: __t.unit(),
+  TournamentHost: __t.unit(),
+  Player: __t.unit(),
+});
+export type UserRole = __Infer<typeof UserRole>;
+
